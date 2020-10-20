@@ -27,12 +27,12 @@ import (
 )
 
 const (
-	VCoreAnnotation         = "tencent.com/vcuda-core"
-	VMemoryAnnotation       = "tencent.com/vcuda-memory"
-	PredicateTimeAnnotation = "tencent.com/predicate-time"
-	PredicateGPUIndexPrefix = "tencent.com/predicate-gpu-idx-"
-	PredicateNode           = "tencent.com/predicate-node"
-	GPUAssigned             = "tencent.com/gpu-assigned"
+	VCoreAnnotation         = "bocloud.com/vcuda-core"
+	VMemoryAnnotation       = "bocloud.com/vcuda-memory"
+	PredicateTimeAnnotation = "bocloud.com/predicate-time"
+	PredicateGPUIndexPrefix = "bocloud.com/predicate-gpu-idx-"
+	PredicateNode           = "bocloud.com/predicate-node"
+	GPUAssigned             = "bocloud.com/gpu-assigned"
 	HundredCore             = 100
 )
 

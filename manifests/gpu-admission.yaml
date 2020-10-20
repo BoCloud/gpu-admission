@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  name: gpu-admission
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gpu-admission
+  template: 
+    metadata:
+      labels:
+        app: gpu-admission
+    spec:
+      serviceAccount: gpu-admission
+      containers:
+      - image: gpu-admission:1.0
+        imagePullPolicy: IfNotPresent
+        name: gpu-admission
+        env:
+        - name: LOG_LEVEL
+          value: "1"
+        - name: EXTRA_FLAGS
+          value: "--incluster-mode=true"
+        ports:
+        - containerPort: 3456
+        volumeMounts:
+        - mountPath: /etc/kubernetes/
+          name: kubernetes
+          readOnly: true
+        - mountPath: /var/log/gpu-admission
+          name: log
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 200m
+          limits:
+            memory: 128Mi
+            cpu: 400m
+      dnsPolicy: ClusterFirstWithHostNet
+      priority: 2000000000
+      priorityClassName: system-cluster-critical
+      volumes:
+      - hostPath:
+          type: Directory
+          path: /etc/kubernetes/
+        name: kubernetes
+      - hostPath:
+          type: DirectoryOrCreate
+          path: /var/log/gpu-admission
+        name: log

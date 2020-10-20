@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  gpu_quota: '{"default":{"quota":{"750ti":1},"pool":["public"]}}'
+kind: ConfigMap
+metadata:
+  name: gpuquota
+  namespace: kube-system
