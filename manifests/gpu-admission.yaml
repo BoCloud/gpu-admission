@@ -15,6 +15,14 @@ spec:
       labels:
         app: gpu-admission
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: node-role.kubernetes.io/master
+                operator: Exists
+            weight: 1
       serviceAccount: gpu-admission
       containers:
       - image: gpu-admission:1.0
