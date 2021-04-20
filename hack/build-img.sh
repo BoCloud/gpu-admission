@@ -6,9 +6,9 @@ set -o nounset
 set -o pipefail
 
 GITCOMMIT=$(git log --oneline|wc -l|sed -e 's/^[ \t]*//')
-VERSION=${VERSION:-1.0}  # MUST modify it for every branch!
+VERSION=$(cat VERSION) # MUST modify it for every branch!
 ROOT=$(dirname "${BASH_SOURCE}")/..
-IMAGE=${IMAGE:-"gpu-admission:${VERSION}"}
+IMAGE=${IMAGE:-"bocloud-bj.io:5000/gpu-admission:${VERSION}"}
 GIT_VERSION_FILE="${ROOT}/.version-defs"
 
 readonly LOCAL_OUTPUT_ROOT="${ROOT}/${OUT_DIR:-_output}"
