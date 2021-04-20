@@ -1,9 +1,27 @@
 {
     "kind" : "Policy",
     "apiVersion" : "v1",
+    "predicates": [
+      {
+        "name": "PodFitsHostPorts"
+      },
+      {
+        "name": "PodFitsResources"
+      },
+      {
+        "name": "NoDiskConflict"
+      },
+      {
+        "name": "MatchNodeSelector"
+      },
+      {
+        "name": "HostName"
+      }
+    ],
     "extenders" : [
           {
             "urlPrefix": "http://gpu-admission-svc:3456/scheduler",
+            "apiVersion": "v1beta1",
             "filterVerb": "predicates",
             "enableHttps": false,
             "nodeCacheCapable": false,

@@ -32,22 +32,14 @@ spec:
             weight: 1
       serviceAccount: gpu-admission
       containers:
-      - image: gpu-admission:1.0
+      - image: bocloud-bj.io:5000/gpu-admission:1.1
         imagePullPolicy: IfNotPresent
         name: gpu-admission
         env:
         - name: LOG_LEVEL
           value: "1"
-        - name: EXTRA_FLAGS
-          value: "--incluster-mode=true"
         ports:
         - containerPort: 3456
-        volumeMounts:
-        - mountPath: /etc/kubernetes/
-          name: kubernetes
-          readOnly: true
-        - mountPath: /var/log/gpu-admission
-          name: log
         resources:
           requests:
             memory: 64Mi
@@ -57,13 +49,5 @@ spec:
             cpu: 400m
       dnsPolicy: ClusterFirstWithHostNet
       priority: 2000000000
+      hostNetwork: true
       priorityClassName: system-cluster-critical
-      volumes:
-      - hostPath:
-          type: Directory
-          path: /etc/kubernetes/
-        name: kubernetes
-      - hostPath:
-          type: DirectoryOrCreate
-          path: /var/log/gpu-admission
-        name: log
